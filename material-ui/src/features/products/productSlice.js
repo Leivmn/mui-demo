@@ -19,7 +19,7 @@ const initialState = [
       id: "1",
       name: "location 1",
     },
-    dueDate: "12/31/2023",
+    dueDate: ["12/31/2023", "01/15/2024", "02/28/2024"],
     amount: 10,
   },
   {
@@ -40,7 +40,7 @@ const initialState = [
       id: "1",
       name: "location 1",
     },
-    dueDate: "06/30/2024",
+    dueDate: ["06/30/2024", "07/15/2024", "08/28/2024"],
     amount: 5,
   },
   {
@@ -61,7 +61,7 @@ const initialState = [
       id: "2",
       name: "location 2",
     },
-    dueDate: "09/15/2024",
+    dueDate: ["09/15/2024", "10/01/2024", "11/15/2024"],
     amount: 8,
   },
   {
@@ -82,7 +82,7 @@ const initialState = [
       id: "2",
       name: "location 2",
     },
-    dueDate: "03/31/2025",
+    dueDate: ["03/31/2025", "04/15/2025", "05/30/2025"],
     amount: 15,
   },
   {
@@ -103,7 +103,7 @@ const initialState = [
       id: "3",
       name: "location 3",
     },
-    dueDate: "07/31/2024",
+    dueDate: ["07/31/2024", "08/15/2024", "09/30/2024"],
     amount: 20,
   },
   {
@@ -124,7 +124,7 @@ const initialState = [
       id: "3",
       name: "location 3",
     },
-    dueDate: "11/30/2023",
+    dueDate: ["11/30/2023", "12/15/2023", "01/31/2024"],
     amount: 12,
   },
   {
@@ -145,7 +145,7 @@ const initialState = [
       id: "4",
       name: "location 4",
     },
-    dueDate: "05/31/2024",
+    dueDate: ["05/31/2024", "06/15/2024", "07/30/2024"],
     amount: 6,
   },
   {
@@ -166,7 +166,7 @@ const initialState = [
       id: "4",
       name: "location 4",
     },
-    dueDate: "08/31/2024",
+    dueDate: ["08/31/2024", "09/15/2024", "10/30/2024"],
     amount: 10,
   },
   {
@@ -187,7 +187,7 @@ const initialState = [
       id: "5",
       name: "location 5",
     },
-    dueDate: "10/31/2024",
+    dueDate: ["10/31/2024", "11/15/2024", "12/30/2024"],
     amount: 8,
   },
   {
@@ -208,10 +208,11 @@ const initialState = [
       id: "5",
       name: "location 5",
     },
-    dueDate: "04/30/2025",
+    dueDate: ["04/30/2025", "05/15/2025", "06/30/2025"],
     amount: 10,
   },
 ];
+
 
 export const productSlice = createSlice({
   name: "product",

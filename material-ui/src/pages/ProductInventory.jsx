@@ -7,6 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Drawer from "@mui/material/Drawer";
 import Basket from "../components/Basket";
 import ProductInventoryHeader from "../components/ProductInventoryHeader";
+import dayjs from "dayjs";
 
 function ProductInventory() {
   const products = useSelector((state) => state.product);
@@ -35,8 +36,8 @@ function ProductInventory() {
       return product.price <= parseFloat(searchText);
     } else if (filter === "dueDate" && searchText !== "") {
       const searchTextDate = new Date(searchText);
-      const productDueDate = new Date(product.dueDate);
-      return productDueDate <= searchTextDate;
+      const productDueDates = product.dueDate.map((date) => new Date(date));
+      return productDueDates.some((dueDate) => dueDate <= searchTextDate);
     }
     return true;
   });

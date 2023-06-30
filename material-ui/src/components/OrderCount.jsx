@@ -46,7 +46,7 @@ export default function OrderCount(props) {
     if (props.size === 1) {
       return 20;
     }
-    return undefined;
+    return 20;
   };
 
   //#endregion
@@ -68,13 +68,13 @@ export default function OrderCount(props) {
         sx={{ backgroundColor: "#fff", borderRadius: "0.2rem 0 0 0.2rem" }}
         size={props.size === 1 ? "small" : undefined}
       >
-        <RemoveRoundedIcon sx={{ fontSize: getIconSize() }} />
+        <RemoveRoundedIcon sx={{ fontSize: 20 }} />
       </IconButton>
       <StyledInput value={amount} disabled size={props.size} />
       <IconButton
         onClick={() => handleAddToBasket()}
-        sx={{ backgroundColor: "#fff", borderRadius: "0 0.2rem 0.2rem 0" }}
-        size={props.size === 1 ? "small" : undefined}
+        sx={{ backgroundColor: "#fff", borderRadius: "0 0.2rem 0.2rem 0", }}
+        size={props.size === 1 ? "small" : "medium"}
       >
         <AddRoundedIcon sx={{ fontSize: getIconSize() }} />
       </IconButton>
@@ -88,10 +88,11 @@ const StyledInput = styled("input")(({ size }) => ({
   color: "#495057",
   fontSize: "1rem",
   fontWeight: 500,
-  width: "1.5rem",
+  width: "1.2rem",
   border: "none",
   appearance: "none",
   textAlign: "center",
+  
   ...(size === 1 && {
     fontSize: "0.9rem",
     width: "1rem",

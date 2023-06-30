@@ -10,26 +10,38 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import { setFilter, setSearchText } from "../features/products/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 export default function ProductInventoryHeader({ toggle }) {
   const dispatch = useDispatch();
+  const [date, setDate] = useState(dayjs());
   const filter = useSelector((state) => state.filter);
+
   const handleFilter = (event) => {
+    dispatch(setSearchText(""));
     dispatch(setFilter(event.target.value));
   };
+
   const handleSearch = (event) => {
     dispatch(setSearchText(event.target.value));
+  };
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    dispatch(setSearchText(dayjs(newDate).format("MM/DD/YYYY")));
   };
 
   return (
     <AppBar sx={{ backgroundColor: "#f5f5f5" }} component="div">
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-select-small-label">Filter</InputLabel>
+            <InputLabel>Filter</InputLabel>
             <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
               value={filter.filter}
               label="Filter"
               onChange={handleFilter}
@@ -40,14 +52,27 @@ export default function ProductInventoryHeader({ toggle }) {
               <MenuItem value="dueDate">Expiración</MenuItem>
             </Select>
           </FormControl>
-          <TextField
-            label="Search"
-            id="outlined-size-small"
-            size="small"
-            color="primary"
-            sx={{ m: 1, minWidth: 100 }}
-            onChange={handleSearch}
-          />
+          {filter.filter === "dueDate" ? (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                value={date}
+                onChange={handleDateChange}
+                slotProps={{
+                  textField: {
+                    size: "small",
+                  },
+                }}
+              />
+            </LocalizationProvider>
+          ) : (
+            <TextField
+              label="Search"
+              size="small"
+              color="primary"
+              sx={{ m: 1, minWidth: 100 }}
+              onChange={handleSearch}
+            />
+          )}
         </Box>
         <IconButton onClick={toggle(true)}>
           <FactCheckRoundedIcon color="primary" fontSize="large" />

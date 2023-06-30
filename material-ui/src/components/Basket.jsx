@@ -42,7 +42,7 @@ export default function Basket({ toggle }) {
       >
         <img src={logo} alt="logo" />
         <Typography variant="h5" color={"white"} fontWeight={"bold"}>
-          Basket
+          Cesta
         </Typography>
       </Box>
       <Box

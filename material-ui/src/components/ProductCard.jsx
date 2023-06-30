@@ -6,10 +6,17 @@ import CardContent from "@mui/material/CardContent";
 import Box from "@mui/material/Box";
 import styled from "@emotion/styled";
 import OrderCount from "./OrderCount";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useState } from "react";
 
 export default function ProductCard(props) {
   const { pictures, name, description, price, category, subcategory, dueDate } =
     props.product;
+
+  const [date, setDate] = useState("");
 
   return (
     <Grid item xs={12} md={6} lg={3}>
@@ -30,7 +37,7 @@ export default function ProductCard(props) {
           >
             {name}
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", flexWrap: 'wrap', justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", gap: "0.5rem" }}>
               <Typography variant="subtitle2" color="primary">
                 {category}
@@ -39,9 +46,25 @@ export default function ProductCard(props) {
                 {subcategory}
               </Typography>
             </Box>
-            <Typography variant="caption" color={"#6c757d"}>
-              {dueDate}
-            </Typography>
+            <FormControl size="small" sx={{ marginBottom: 1 }}>
+              <Select
+                variant="standard"
+                defaultValue={dueDate[0]}
+                displayEmpty
+                sx={{
+                  color: "#6c757d",
+                  fontSize: 12,
+                }}
+              >
+                {dueDate.map((date) => (
+                  <MenuItem value={date}>
+                    <Typography variant="caption" color={"#6c757d"}>
+                      {date}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
           <Typography
             variant="body1"
