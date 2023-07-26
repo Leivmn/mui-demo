@@ -128,7 +128,7 @@ export default function EnhancedTable({ data }) {
 
   return (
     <Box>
-      <TableContainer component={Paper} elevation={8} sx={{ borderRadius: 4 }}>
+      <TableContainer component={Box} sx={{ borderRadius: 4, boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}>
         <Table stickyHeader>
           <EnhancedTableHead
             order={order}

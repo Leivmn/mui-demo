@@ -48,7 +48,7 @@ export default function Home({ user }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4} columns={12} padding={2}>
+      <Grid container spacing={3} padding={2}>
         <Grid item container xs={12} spacing={4}>
           <Grid item xs={12} lg={6}>
             <CustomLineChart hex="#311b92" accent='#673ab7' type='Entrada' data={incomeData} amount={user.itemsAdded} />

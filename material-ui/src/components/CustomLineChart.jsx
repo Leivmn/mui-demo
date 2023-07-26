@@ -17,7 +17,7 @@ export default function CustomLineChart({ hex, accent, type, data, amount }) {
   const background = `linear-gradient(0deg, ${hex}, ${accent})`
 
   return (
-    <Paper elevation={8} sx={{ borderRadius: 4, overflow: "hidden" }}>
+    <Box sx={{ borderRadius: 4, overflow: "hidden", boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",}}>
       <Grid container>
         <Grid item xs={12} md={2} lg={2}>
           <Box
@@ -95,6 +95,6 @@ export default function CustomLineChart({ hex, accent, type, data, amount }) {
           </Box>
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   );
 }
