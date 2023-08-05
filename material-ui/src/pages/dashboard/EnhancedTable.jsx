@@ -5,13 +5,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Chip from "@mui/material/Chip";
-import PropTypes from 'prop-types';
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import TablePagination from '@mui/material/TablePagination';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import { visuallyHidden } from '@mui/utils';
+import PropTypes from "prop-types";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import TablePagination from "@mui/material/TablePagination";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import { visuallyHidden } from "@mui/utils";
 import Typography from "@mui/material/Typography";
 
 function descendingComparator(a, b, orderBy) {
@@ -43,10 +43,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
+  { id: "user", numeric: false, label: "Usuario" },
+  { id: "cellar", numeric: false, label: "Bodega" },
   { id: "name", numeric: false, label: "Nombre" },
   { id: "type", numeric: false, label: "Tipo" },
-  { id: "date", numeric: true, label: "Fecha" },
   { id: "quantity", numeric: true, label: "Cantidad" },
+  { id: "date", numeric: true, label: "Fecha" },
 ];
 
 function EnhancedTableHead(props) {
@@ -57,7 +59,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="left" colSpan={4}>
+        <TableCell align="left" colSpan={6}>
           <Typography variant="h6">Movimientos</Typography>
         </TableCell>
       </TableRow>
@@ -65,7 +67,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? "right" : "left"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -97,6 +99,7 @@ export default function EnhancedTable({ data }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -127,9 +130,16 @@ export default function EnhancedTable({ data }) {
   );
 
   return (
-    <Box>
-      <TableContainer component={Box} sx={{ borderRadius: 4, boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}>
-        <Table stickyHeader>
+    <Box
+    sx={{
+      bgcolor: "#FFF",
+      borderRadius: 4,
+      boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px",
+      overflow: 'hidden'
+    }}
+    >
+      <TableContainer>
+        <Table size="medium" stickyHeader>
           <EnhancedTableHead
             order={order}
             orderBy={orderBy}
@@ -142,25 +152,36 @@ export default function EnhancedTable({ data }) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.user}
                 </TableCell>
+                <TableCell align="left">{row.cellar}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">
                   {row.type == "Entrada" ? (
                     <Chip
                       label={row.type}
-                      sx={{ bgcolor: "#673ab7", color: "#FFF" }}
+                      sx={{ bgcolor: "#0b930b", color: "#FFF" }}
                     />
                   ) : (
                     <Chip
                       label={row.type}
-                      sx={{ bgcolor: "#ff5722", color: "#FFF" }}
+                      sx={{ bgcolor: "#d32f2f", color: "#FFF" }}
                     />
                   )}
                 </TableCell>
-                <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right">{row.quantity}</TableCell>
+                <TableCell align="right">{row.date}</TableCell>
               </TableRow>
             ))}
+            {emptyRows > 0 && (
+              <TableRow
+                style={{
+                  height: 65 * emptyRows,
+                }}
+              >
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

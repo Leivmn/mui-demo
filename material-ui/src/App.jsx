@@ -1,7 +1,7 @@
 import ProductInventory from "./pages/ProductInventory";
 import PDFReport from "./components/ReportTemplate";
 import getReport from "./helpers/getReport";
-import Home from "./pages/Home";
+import Dashboard from "./pages/dashboard/index";
 
 function App() {
   const jsonData = [
@@ -393,25 +393,195 @@ function App() {
   ];
 
   const userData = {
-    name: "Pedro",
+    actualUser: "Pedro",
     itemsAdded: 65,
     itemsRemoved: 67,
+    TotalValue: 5000000,
+    TotalAmount: 2390,
     incomeProducts: [
-      { id: 1, name: "Cepillo dental", quantity: 12, date: "3/26/2023" },
-      { id: 3, name: "Hilo dental", quantity: 23, date: "4/27/2023" },
-      { id: 5, name: "Pasta de dientes", quantity: 30, date: "7/28/2023" },
+      {
+        id: 1,
+        user: "Pedro",
+        cellar: "Bodega A",
+        name: "Crema dental",
+        quantity: 40,
+        date: "2023-01-15",
+      },
+      {
+        id: 2,
+        user: "María",
+        cellar: "Bodega B",
+        name: "Enjuague bucal",
+        quantity: 20,
+        date: "2023-02-10",
+      },
+      {
+        id: 3,
+        user: "Carlos",
+        cellar: "Bodega A",
+        name: "Cepillo suave",
+        quantity: 15,
+        date: "2023-03-05",
+      },
+      {
+        id: 4,
+        user: "Ana",
+        cellar: "Bodega C",
+        name: "Hilo dental",
+        quantity: 35,
+        date: "2023-04-29",
+      },
+      {
+        id: 5,
+        user: "Luis",
+        cellar: "Bodega A",
+        name: "Pasta sensi",
+        quantity: 15,
+        date: "2023-05-23",
+      },
+      {
+        id: 6,
+        user: "Laura",
+        cellar: "Bodega B",
+        name: "Cepillo interdental",
+        quantity: 40,
+        date: "2023-06-18",
+      },
+      {
+        id: 7,
+        user: "Andrés",
+        cellar: "Bodega C",
+        name: "Enjuague con flúor",
+        quantity: 55,
+        date: "2023-06-30",
+      },
+      {
+        id: 8,
+        user: "Lucía",
+        cellar: "Bodega A",
+        name: "Enjuague sin alcohol",
+        quantity: 40,
+        date: "2023-07-05",
+      },
+      {
+        id: 9,
+        user: "Miguel",
+        cellar: "Bodega B",
+        name: "Cepillo eléctrico",
+        quantity: 35,
+        date: "2023-07-12",
+      },
+      {
+        id: 10,
+        user: "Isabel",
+        cellar: "Bodega A",
+        name: "Pasta blanqueadora",
+        quantity: 85,
+        date: "2023-08-02",
+      },
     ],
     outcomeProducts: [
-      { id: 2, name: "Cepillo dental", quantity: 7, date: "2/22/2023" },
-      { id: 4, name: "Hilo dental", quantity: 20, date: "5/24/2023" },
-      { id: 6, name: "Pasta de dientes", quantity: 40, date: "6/25/2023" },
+      {
+        id: 11,
+        user: "Juan",
+        cellar: "Bodega A",
+        name: "Crema dental",
+        quantity: 30,
+        date: "2023-01-20",
+      },
+      {
+        id: 12,
+        user: "Elena",
+        cellar: "Bodega B",
+        name: "Enjuague bucal",
+        quantity: 20,
+        date: "2023-02-12",
+      },
+      {
+        id: 13,
+        user: "Pedro",
+        cellar: "Bodega A",
+        name: "Cepillo suave",
+        quantity: 10,
+        date: "2023-03-08",
+      },
+      {
+        id: 14,
+        user: "María",
+        cellar: "Bodega C",
+        name: "Hilo dental",
+        quantity: 25,
+        date: "2023-04-25",
+      },
+      {
+        id: 15,
+        user: "Pedro",
+        cellar: "Bodega A",
+        name: "Pasta sensi",
+        quantity: 8,
+        date: "2023-05-19",
+      },
+      {
+        id: 16,
+        user: "Laura",
+        cellar: "Bodega B",
+        name: "Cepillo interdental",
+        quantity: 25,
+        date: "2023-06-10",
+      },
+      {
+        id: 17,
+        user: "Andrea",
+        cellar: "Bodega C",
+        name: "Enjuague con flúor",
+        quantity: 25,
+        date: "2023-06-28",
+      },
+      {
+        id: 18,
+        user: "Carolina",
+        cellar: "Bodega B",
+        name: "Cepillo eléctrico",
+        quantity: 10,
+        date: "2023-07-05",
+      },
+      {
+        id: 19,
+        user: "Julio",
+        cellar: "Bodega A",
+        name: "Enjuague sin alcohol",
+        quantity: 10,
+        date: "2023-07-02",
+      },
+      {
+        id: 20,
+        user: "Luis",
+        cellar: "Bodega A",
+        name: "Pasta blanqueadora",
+        quantity: 50,
+        date: "2023-08-2",
+      },
+    ],
+    cellars: [
+      {
+        name: "Bodega A",
+        value: 5500,
+      },
+      {
+        name: "Bodega B",
+        value: 9876,
+      },
+      {
+        name: "Bodega C",
+        value: 4300,
+      },
     ],
   };
 
   return (
     <>
       {/* <ProductInventory /> */}
-      <Home user={userData} />
+      <Dashboard data={userData} />
       {/* <h1>Generar reporte</h1> */}
       {/* <button onClick={console.log(getReport())}>Testing</button> */}
       {/* <PDFReport data={jsonData} /> */}

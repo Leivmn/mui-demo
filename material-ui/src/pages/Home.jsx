@@ -1,14 +1,18 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
 import EnhancedTable from "../components/EnhancedTable";
-import CustomLineChart from "../components/CustomLineChart";
+import CustomAreaChart from "../components/CustomAreaChart";
+import Typography from "@mui/material/Typography";
+import styled from "@emotion/styled";
+import CustomPieChart from "../components/CustomPieChart";
 
 dayjs.locale("es");
 
-export default function Home({ user }) {
+export default function Home({ data }) {
   const groupByMonth = (data) => {
     const groupedData = data.reduce((acc, item) => {
       const month = dayjs(item.date).format("MMMM");
@@ -28,14 +32,46 @@ export default function Home({ user }) {
     return incomeData;
   };
 
-  const incomeData = groupByMonth(user.incomeProducts);
-  const outcomeData = groupByMonth(user.outcomeProducts);
+  const totalAmount = (data) => {
+    let total = 0;
 
-  const arr1 = user.incomeProducts.map((item) => ({
+    for (const item of data) {
+      if (item.hasOwnProperty("quantity")) {
+        total += item.quantity;
+      }
+    }
+
+    return total;
+  };
+
+  const amount = {
+    income: totalAmount(data.incomeProducts),
+    outcome: totalAmount(data.outcomeProducts),
+  };
+
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    let greeting = "";
+
+    if (currentHour >= 5 && currentHour < 12) {
+      greeting = "Buenos días";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      greeting = "Buenas tardes";
+    } else {
+      greeting = "Buenas noches";
+    }
+
+    return greeting;
+  };
+
+  const incomeData = groupByMonth(data.incomeProducts);
+  const outcomeData = groupByMonth(data.outcomeProducts);
+
+  const arr1 = data.incomeProducts.map((item) => ({
     ...item,
     type: "Entrada",
   }));
-  const arr2 = user.outcomeProducts.map((item) => ({
+  const arr2 = data.outcomeProducts.map((item) => ({
     ...item,
     type: "Salida",
   }));
@@ -47,23 +83,22 @@ export default function Home({ user }) {
   });
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3} padding={2}>
-        <Grid item container xs={12} spacing={4}>
-          <Grid item xs={12} lg={6}>
-            <CustomLineChart hex="#311b92" accent='#673ab7' type='Entrada' data={incomeData} amount={user.itemsAdded} />
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <CustomLineChart hex="#ff5722" accent='#ff9800' type='Salida' data={outcomeData} amount={user.itemsRemoved} />
-          </Grid>
+    <Grid container spacing={2}>
+      <Grid item x={12}>
+        <Grid container spacing={2}>
+
         </Grid>
-        <Grid item xs={12}>
-          <EnhancedTable data={rows} />
-        </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ padding: 1 }}>Section</Paper>
-        </Grid>
+
       </Grid>
-    </Box>
+      
+    </Grid>
   );
 }
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  borderRadius: 8,
+  padding: 16,
+  height: "100%",
+  backgroundColor: "red",
+  boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px;",
+}));

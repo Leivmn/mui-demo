@@ -39,7 +39,7 @@ export default function ProductInventoryHeader({ toggle }) {
     <AppBar sx={{ backgroundColor: "#f5f5f5" }} component="div">
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
             <InputLabel>Filter</InputLabel>
             <Select
               value={filter.filter}
