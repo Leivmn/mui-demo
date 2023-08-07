@@ -107,7 +107,7 @@ export default function Dashboard({ data }) {
             <Greetings user={data.actualUser} />
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={4}>
-            <AreaChartCard data={TestIncome} type="income" />
+            <LineChartCard data={TestIncome} type="income" />
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={4}>
             <LineChartCard data={TestOutcome} type="outcome" />
