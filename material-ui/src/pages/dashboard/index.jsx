@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import AreaChartCard from "./AreaChartCard";
+import LineChartCard from "./LineChartCard";
 import PieChartCard from "./PieChartCard";
 import Greetings from "./Greetings";
 import SlimCard from "./SlimCard";
@@ -110,7 +110,7 @@ export default function Dashboard({ data }) {
             <AreaChartCard data={TestIncome} type="income" />
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={4}>
-            <AreaChartCard data={TestOutcome} type="outcome" />
+            <LineChartCard data={TestOutcome} type="outcome" />
           </Grid>
         </Grid>
       </Grid>

@@ -4,7 +4,7 @@ import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
 import LineChart from "./chart-data/line-chart";
 import { useState } from "react";
 
-const AreaChartCard = ({ data, type }) => {
+const LineChartCard = ({ data, type }) => {
 
   const [theme, setTheme] = useState("");
   const colors = {
@@ -108,4 +108,4 @@ const AreaChartCard = ({ data, type }) => {
   );
 };
 
-export default AreaChartCard;
+export default LineChartCard;
