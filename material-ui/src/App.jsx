@@ -1,7 +1,8 @@
 import ProductInventory from "./pages/ProductInventory";
 import PDFReport from "./components/ReportTemplate";
 import getReport from "./helpers/getReport";
-import Dashboard from "./pages/dashboard/index";
+import Dashboard from "./pages/dashboard";
+import Box from "@mui/material/Box";
 
 function App() {
   const jsonData = [
@@ -559,7 +560,7 @@ function App() {
         cellar: "Bodega A",
         name: "Pasta blanqueadora",
         quantity: 50,
-        date: "2023-08-2",
+        date: "2023-08-02",
       },
     ],
     cellars: [
@@ -581,7 +582,18 @@ function App() {
   return (
     <>
       {/* <ProductInventory /> */}
-      <Dashboard data={userData} />
+      <Box
+        sx={{
+          display: "flex",
+          bgcolor: "#EEF2F6",
+          padding: 2.5,
+          // height: "100vh",
+          flexGrow: 1,
+        }}
+      >
+        <Dashboard data={userData} />
+      </Box>
+
       {/* <h1>Generar reporte</h1> */}
       {/* <button onClick={console.log(getReport())}>Testing</button> */}
       {/* <PDFReport data={jsonData} /> */}

@@ -1,18 +1,19 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Chip from "@mui/material/Chip";
 import PropTypes from "prop-types";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
-import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
-import Typography from "@mui/material/Typography";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Chip,
+  Box,
+  TablePagination,
+  TableSortLabel,
+  Typography,
+  TableContainer,
+} from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -43,12 +44,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: "user", numeric: false, label: "Usuario" },
-  { id: "cellar", numeric: false, label: "Bodega" },
-  { id: "name", numeric: false, label: "Nombre" },
-  { id: "type", numeric: false, label: "Tipo" },
-  { id: "quantity", numeric: true, label: "Cantidad" },
-  { id: "date", numeric: true, label: "Fecha" },
+  { id: "user", numeric: false, label: "USUARIO" },
+  { id: "cellar", numeric: false, label: "BODEGA" },
+  { id: "name", numeric: false, label: "NOMBRE" },
+  { id: "type", numeric: false, label: "TIPO" },
+  { id: "quantity", numeric: true, label: "CANTIDAD" },
+  { id: "date", numeric: true, label: "FECHA" },
 ];
 
 function EnhancedTableHead(props) {
@@ -57,13 +58,23 @@ function EnhancedTableHead(props) {
     onRequestSort(event, property);
   };
   return (
-    <TableHead>
+    <TableHead sx={{ ".MuiTableCell-root": { borderBottom: "none" } }}>
       <TableRow>
-        <TableCell align="left" colSpan={6}>
-          <Typography variant="h6">Movimientos</Typography>
+        <TableCell align="left" colSpan={6} sx={{ p: "32px 24px 16px" }}>
+          <Typography variant="h6" color={"#191e27"} fontWeight={600}>
+            Movimientos
+          </Typography>
         </TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow
+        sx={{
+          ".MuiTableCell-root": {
+            bgcolor: "#F8F9FA",
+            color: "#2F3746",
+            fontWeight: 500,
+          },
+        }}
+      >
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -95,11 +106,10 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
 };
 
-export default function EnhancedTable({ data }) {
+export default function StockChanges({ data }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -131,15 +141,15 @@ export default function EnhancedTable({ data }) {
 
   return (
     <Box
-    sx={{
-      bgcolor: "#FFF",
-      borderRadius: 4,
-      boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px",
-      overflow: 'hidden'
-    }}
+      sx={{
+        minWidth: "100%",
+        bgcolor: "#FFF",
+        borderRadius: 2,
+        overflow: "hidden",
+      }}
     >
       <TableContainer>
-        <Table size="medium" stickyHeader>
+        <Table stickyHeader>
           <EnhancedTableHead
             order={order}
             orderBy={orderBy}
@@ -148,8 +158,9 @@ export default function EnhancedTable({ data }) {
           <TableBody>
             {visibleRows.map((row) => (
               <TableRow
+                hover
                 key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{ ".MuiTableCell-root": { color: "#333333" } }}
               >
                 <TableCell component="th" scope="row">
                   {row.user}
@@ -157,15 +168,23 @@ export default function EnhancedTable({ data }) {
                 <TableCell align="left">{row.cellar}</TableCell>
                 <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">
-                  {row.type == "Entrada" ? (
+                  {row.type == "ENTRADA" ? (
                     <Chip
                       label={row.type}
-                      sx={{ bgcolor: "#0b930b", color: "#FFF" }}
+                      sx={{
+                        bgcolor: "#dcf3c1",
+                        color: "#386f1f",
+                        fontWeight: 600,
+                      }}
                     />
                   ) : (
                     <Chip
                       label={row.type}
-                      sx={{ bgcolor: "#d32f2f", color: "#FFF" }}
+                      sx={{
+                        bgcolor: "#f2e2e0",
+                        color: "#b42318",
+                        fontWeight: 600,
+                      }}
                     />
                   )}
                 </TableCell>
@@ -186,7 +205,7 @@ export default function EnhancedTable({ data }) {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[]}
         component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
