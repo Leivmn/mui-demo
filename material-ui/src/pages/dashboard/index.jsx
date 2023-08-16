@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid";
+import Box from '@mui/material/Box'
 import dayjs from "dayjs";
 import "dayjs/locale/es";
 import LineChartCard from "./LineChartCard";
@@ -67,6 +68,8 @@ export default function Dashboard({ data }) {
     return outcomeDate - incomeDate;
   });
 
+  console.log(rows)
+
   //#endregion
 
   const TestIncome = {
@@ -134,7 +137,6 @@ export default function Dashboard({ data }) {
               </Grid>
               <Grid item xs={12}>
                 <PieChartCard />
-                {/* <CustomPieChart data={data.cellars} /> */}
               </Grid>
             </Grid>
           </Grid>

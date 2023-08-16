@@ -1,79 +1,77 @@
 import Chart from "react-apexcharts";
 
 const PieChart = ({ conf }) => {
-
-    function toPercentage( array ) {
-        const total = array.reduce((acc, num) => acc + num, 0);
-        const series = array.map(num => parseInt((num / total) * 100));
-        return { total, series }
-    }
-    const { total, series } = toPercentage(conf.series);
-    console.log(total, series);
-
   const options = {
-    plotOptions: {
-      radialBar: {
-        offsetY: -35,
-        hollow: {
-          size: '25%',
-          background: 'transparent'
-        },
+    colors: ["#56ab2f", "#cb2d3e", "#0072ff"],
+    fill: {
+      type: "gradient",
+      gradient: {
+        type: "horizontal",
+        gradientToColors: ["#a8e063", "#ef473a", "#00c6ff"],
+      },
+    },
+    labels: conf.categories,
+    stroke: {
+      width: 4,
+    },
+    dataLabels: {
+      enabled: true,
+      dropShadow: {
+        enabled: false,
+      },
+    },
+    legend: {
+      position: "bottom",
+      horizontalAlign: "center",
+      fontSize: 16,
+      fontWeight: 600,
+      markers: {
+        width: 16,
+        height: 16,
+      },
+      itemMargin: {
+        vertical: 20,
       },
     },
     states: {
-        active: {
-            filter: {
-                type: 'none'
-            }
-        },
-        hover: {
-            filter: {
-                type: 'none'
-            }
-        }
-    },
-    stroke: {
-      lineCap: 'round',
-        width: 0
-    },
-    
-    dataLabels: {
-      enabled: false,
-    },
-    labels: conf.categories,
-    legend: {
-        show: true,
-        fontSize: 24,
-        fontWeight: 600,
-        markers: {
-          width: 24,
-          height: 24
-        },
-        itemMargin: {
-          vertical: 20,
-        }
-    },
-    colors: ['#a8e063', '#ef473a', '#00c6ff'],
-    fill: {
-      type: "solid",
-      opacity: 1
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
+      active: {
+        filter: {
+          type: "none",
         },
       },
-    ],
+      hover: {
+        filter: {
+          type: "none",
+        },
+      },
+    },
+    tooltip: {
+      theme: "dark",
+      fillSeriesColor: false,
+      fixed: {
+        enabled: false,
+      },
+      y: {
+        title: "Total Order",
+      },
+      marker: {
+        show: false,
+      },
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: false,
+          },
+        },
+        expandOnClick: false,
+      },
+    },
   };
+
   return (
-    <Chart options={options} series={series} type="radialBar" height={350} width='100%' />
+    <Chart options={options} series={conf.series} type="pie" height={352} />
   );
 };
 

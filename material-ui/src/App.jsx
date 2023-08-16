@@ -3,6 +3,9 @@ import PDFReport from "./components/ReportTemplate";
 import getReport from "./helpers/getReport";
 import Dashboard from "./pages/dashboard";
 import Box from "@mui/material/Box";
+import Testing from "./utils/Testing";
+import { Button } from "@mui/material";
+import fetchImage from "./utils/fetchImage";
 
 function App() {
   const jsonData = [
@@ -472,14 +475,6 @@ function App() {
         quantity: 35,
         date: "2023-07-12",
       },
-      {
-        id: 10,
-        user: "Isabel",
-        cellar: "Bodega A",
-        name: "Pasta blanqueadora",
-        quantity: 85,
-        date: "2023-08-02",
-      },
     ],
     outcomeProducts: [
       {
@@ -554,14 +549,6 @@ function App() {
         quantity: 10,
         date: "2023-07-02",
       },
-      {
-        id: 20,
-        user: "Luis",
-        cellar: "Bodega A",
-        name: "Pasta blanqueadora",
-        quantity: 50,
-        date: "2023-08-02",
-      },
     ],
     cellars: [
       {
@@ -579,9 +566,12 @@ function App() {
     ],
   };
 
+  // console.log(fetchImage())
+
   return (
     <>
       {/* <ProductInventory /> */}
+
       <Box
         sx={{
           display: "flex",
@@ -594,9 +584,10 @@ function App() {
         <Dashboard data={userData} />
       </Box>
 
-      {/* <h1>Generar reporte</h1> */}
-      {/* <button onClick={console.log(getReport())}>Testing</button> */}
-      {/* <PDFReport data={jsonData} /> */}
+      {/* <h1>Generar reporte</h1>
+      <PDFReport data={jsonData} /> */}
+      {/* <CreatePDF /> */}
+      {/* <Button onClick={() => fetchImage()}>To URI</Button> */}
     </>
   );
 }
