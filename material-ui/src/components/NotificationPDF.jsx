@@ -205,7 +205,7 @@ const FormatDate = (type, data) => {
   return data.map((obj) => ({ ...obj, date: formatter(obj.date) }));
 };
 
-const HandleNotification = (type, data) => {
+const HandleNotification = (type, data, filters) => {
   const currentJSON = JSONs[type];
   if (!currentJSON) {
     console.error("Tipo de JSON Inválido.");
@@ -216,7 +216,7 @@ const HandleNotification = (type, data) => {
 
   const styles = StyleSheet.create({
     page: {
-      backgroundColor: "#f4f4fc",
+      // backgroundColor: "#f4f4fc",
       alignItems: "center",
       padding: 24,
       gap: 0,
@@ -228,10 +228,31 @@ const HandleNotification = (type, data) => {
     },
   });
 
+  let headerTitle;
+  switch (type) {
+    case "extraction":
+      headerTitle = "SALIDA DE INVENTARIO";
+      break;
+    case "lowStock":
+      headerTitle = "INVENTARIO BAJO";
+      break;
+    case "transfer":
+      headerTitle = "TRANSFERENCIA DE INVENTARIO";
+      break;
+    case "restock":
+      headerTitle = "INGRESO DE INVENTARIO";
+      break;
+    case "expiration":
+      headerTitle = "EXISTENCIAS VENCIDAS";
+      break;
+    default:
+      headerTitle = "";
+  }
+
   const header = (
     <View id="header" style={{ display: "flex", alignSelf: "stretch", gap: 8 }}>
-      <Text style={{ fontSize: 22, fontFamily: "Helvetica-Bold" }}>
-        NOTIFICACIONES DE INVENTARIO
+      <Text style={{ fontSize: 20, fontFamily: "Helvetica-Bold" }}>
+        NOTIFICACIONES DE {headerTitle}
       </Text>
       <View style={{ flexDirection: "row", gap: 8 }}>
         <Text style={{ fontSize: 12, fontFamily: "Helvetica-Bold" }}>
@@ -246,6 +267,10 @@ const HandleNotification = (type, data) => {
         >
           {dayjs().format("MM/DD/YYYY")}
         </Text>
+      </View>
+      <View style={{ gap: 4 }}>
+        <Text style={{ fontFamily: "Helvetica-Bold" }}>Filtros aplicados:</Text>
+        <Text>{filters}</Text>
       </View>
     </View>
   );
@@ -267,7 +292,7 @@ const HandleNotification = (type, data) => {
 };
 
 const Notification = ({ current, data }) => {
-  const { type, date, user, title, fromWorkspace } = data;
+  const { type, date, user, title } = data;
   let titleType;
   if (type === "expiration") {
     titleType = `${user.name}: ${title}`;
@@ -284,7 +309,7 @@ const Notification = ({ current, data }) => {
       backgroundColor: "#FFF",
       border: "1px solid #B2BEC3",
       borderRadius: 4,
-      margin: 8
+      margin: 8,
     },
     info: {
       padding: "24 16",
@@ -298,27 +323,40 @@ const Notification = ({ current, data }) => {
   });
 
   const NotifHeader = () => (
-    <View style={{ padding: 16, gap: 4, backgroundColor: "#FFF" }}>
+    <View style={{ padding: 16, gap: 4, backgroundColor: "#f4f4fc" }}>
       <Text style={{ fontFamily: "Helvetica-Bold", fontSize: 12 }}>
         {titleType}
       </Text>
       <Text style={{ color: "#636E72", fontSize: 10 }}>{date}</Text>
-      {type !== "tranfer" ? (
-        <Text>{fromWorkspace.name}</Text>
-      ) : (
-        <View>
-          <Text>{fromWorkspace.name}</Text>
+      {type === "transfer" ? (
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <Text>de {data.fromWorkspace.name} a </Text>
           <Text>{data.toWorkspace.name}</Text>
         </View>
+      ) : (
+        <Text>{data.fromWorkspace.name}</Text>
       )}
     </View>
   );
 
   return (
-    <View wrap={false} style={{ border: "1px solid #B2BEC3", backgroundColor: '#f4f5f6', marginTop: 24 }}>
+    <View
+      wrap={false}
+      style={{
+        border: "1px solid #B2BEC3",
+        backgroundColor: "#f4f4fc",
+        marginTop: 24,
+      }}
+    >
       <NotifHeader />
       <View style={styles.body}>
-        <View style={styles.info}>
+        <View
+          style={
+            type === ("lowStock" || "expiration")
+              ? { padding: "24 16", flex: 1 }
+              : styles.info
+          }
+        >
           <Text style={{ fontSize: 12, marginBottom: 16 }}>
             INFORMACION DE NOTIFICACIÓN
           </Text>
@@ -326,10 +364,18 @@ const Notification = ({ current, data }) => {
             <Table key={index} target={current} data={table} />
           ))}
         </View>
-        <View style={styles.comments}>
-          <Text style={{ fontSize: 12, marginBottom: 16 }}>COMENTARIOS</Text>
-          <View style={{ border: "1px solid #B2BEC3", padding: 8, height: '40%' }}><Text>{data.userDetails}</Text></View>
-        </View>
+        {type === ("lowStock" || "expiration") ? (
+          <></>
+        ) : (
+          <View style={styles.comments}>
+            <Text style={{ fontSize: 12, marginBottom: 16 }}>COMENTARIOS</Text>
+            <View
+              style={{ border: "1px solid #B2BEC3", padding: 8, minHeight: "40%", maxHeight: '80%' }}
+            >
+              <Text>{data.userDetails}</Text>
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
