@@ -1,6 +1,6 @@
-const fetchImage = () => {
-  let imgURL =
-    "https://drive.google.com/uc?id=1abcdefg";
+const fetchImage = (imgURL) => {
+  // let imgURL =
+  //   "https://drive.google.com/uc?id=1abcdefg";
   const img = new Image();
   img.setAttribute('crossOrigin', 'anonymous');
   img.src = imgURL;

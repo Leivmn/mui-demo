@@ -3,9 +3,11 @@ import PDFReport from "./components/ReportTemplate";
 import getReport from "./helpers/getReport";
 import Dashboard from "./pages/dashboard";
 import Box from "@mui/material/Box";
-import Testing from "./utils/Testing";
 import { Button } from "@mui/material";
 import fetchImage from "./utils/fetchImage";
+import HandleNotifaction, { TestPDF } from "./components/NotificationPDF";
+import { BlobProvider } from "@react-pdf/renderer";
+import HandleNotification from "./components/NotificationPDF";
 
 function App() {
   const jsonData = [
@@ -566,13 +568,265 @@ function App() {
     ],
   };
 
-  // console.log(fetchImage())
+  // const data = [
+  //   {
+  //     productName: "Colgate Plax 500ml",
+  //     itemName: "Colgate Plax 1000ml",
+  //     productCode: "PRODUCT-1",
+  //     itemCode: "EXISTS-3",
+  //     itemId: "64e7b1694e04fec20f78ce8d",
+  //     productId: "64e7abe9225f12eb604f8e0d",
+  //     initialQuantity: 1,
+  //     modifiedQuantity: 1,
+  //     finalQuantity: 0,
+  //   },
+  //   {
+  //     productName: "Listerine Fresh 750ml",
+  //     itemName: "Listerine Fresh 1500ml",
+  //     productCode: "PRODUCT-2",
+  //     itemCode: "EXISTS-4",
+  //     itemId: "73a6c8218b63d91f472e9d33",
+  //     productId: "73a6c6f5218b54e0f472e8c1",
+  //     initialQuantity: 2,
+  //     modifiedQuantity: 1,
+  //     finalQuantity: 1,
+  //   },
+  //   {
+  //     productName: "Sensodyne Toothpaste",
+  //     itemName: "Sensodyne Toothpaste Extra Fresh",
+  //     productCode: "PRODUCT-3",
+  //     itemCode: "EXISTS-5",
+  //     itemId: "85b4d5572678a4e0b392f6d1",
+  //     productId: "85b4d4223456a4e0b392f6c9",
+  //     initialQuantity: 5,
+  //     modifiedQuantity: 3,
+  //     finalQuantity: 2,
+  //   },
+  // ];
+
+  const data = [
+    {
+      title: "ingreso de inventario",
+      rawBody: [
+        {
+          productName: "Colgate Plax",
+          itemName: "Colgate Plax 1000ml",
+          productCode: "PRODUCT-1",
+          itemCode: "EXISTS-1",
+          itemId: "64ea2b7a06c0d7ca71d4f6d8",
+          productId: "64e7abe9225f12eb604f8e0d",
+          initialQuantity: 9,
+          modifiedQuantity: 4,
+          finalQuantity: 13,
+        },
+      ],
+      type: "restock",
+      user: {
+        _id: "6479b27df0c732726d2fd784",
+        name: "Sistema",
+        email: "sistema@gmail.com",
+        picture: "",
+        restricted: false,
+      },
+      fromWorkspace: {
+        _id: "64add3b9fa193c843fe68a31",
+        name: "Consultorio 1",
+        description: "1",
+        deleted: false,
+        picture: "",
+        collectionFolderId: "1IBWabFFpVBqakJrbQ5Ge_VeVYbvGk7Tl",
+        createdAt: "2023-07-11T22:12:09.624Z",
+        updatedAt: "2023-08-25T08:30:31.572Z",
+        __v: 0,
+        fileId: "",
+      },
+      userDetails: "Stocks de Colgate Plax\n",
+      date: "2023-08-26T23:06:12.483Z",
+      status: false,
+      deleted: false,
+      createdAt: "2023-08-26T23:06:12.490Z",
+      updatedAt: "2023-08-26T23:06:12.490Z",
+      id: "64ea8564afa0b9d71e65eaf7",
+    },
+    {
+      title: "ingreso de inventario",
+      rawBody: [
+        {
+          productName: "Colgate Plax",
+          itemName: "Colgate Plax 1000ml",
+          productCode: "PRODUCT-1",
+          itemCode: "EXISTS-1",
+          itemId: "64ea2b7a06c0d7ca71d4f6d8",
+          productId: "64e7abe9225f12eb604f8e0d",
+          initialQuantity: 10,
+          modifiedQuantity: 13,
+          finalQuantity: 23,
+        },
+      ],
+      type: "restock",
+      user: {
+        _id: "6479b27df0c732726d2fd784",
+        name: "Sistema",
+        email: "sistema@gmail.com",
+        picture: "",
+        restricted: false,
+      },
+      fromWorkspace: {
+        _id: "64a448df67469b11b0cd88b3",
+        name: "Bodega TICKETCR",
+        description: "1",
+        deleted: false,
+        picture: "",
+        collectionFolderId: "1g3n26DUxRQFyVxvoTD4I-8cl1dfWUu-I",
+        createdAt: "2023-07-04T16:29:25.964Z",
+        updatedAt: "2023-08-25T17:30:47.465Z",
+        __v: 0,
+        fileId: "",
+      },
+      userDetails: "23 Colgate Plax",
+      date: "2023-08-26T22:32:02.656Z",
+      status: false,
+      deleted: false,
+      createdAt: "2023-08-26T22:32:02.660Z",
+      updatedAt: "2023-08-26T22:32:02.660Z",
+      id: "64ea7d62ae3a004d4bbca28f",
+    },
+    {
+      title: "ingreso de inventario",
+      rawBody: [
+        {
+          productName: "Colgate Plax",
+          itemName: "Colgate Plax 1000ml",
+          productCode: "PRODUCT-1",
+          itemCode: "EXISTS-1",
+          itemId: "64ea2b7a06c0d7ca71d4f6d8",
+          productId: "64e7abe9225f12eb604f8e0d",
+          initialQuantity: 8,
+          modifiedQuantity: 21,
+          finalQuantity: 29,
+        },
+      ],
+      type: "restock",
+      user: {
+        _id: "6479b27df0c732726d2fd784",
+        name: "Sistema",
+        email: "sistema@gmail.com",
+        picture: "",
+        restricted: false,
+      },
+      fromWorkspace: {
+        _id: "64a448df67469b11b0cd88b3",
+        name: "Bodega TICKETCR",
+        description: "1",
+        deleted: false,
+        picture: "",
+        collectionFolderId: "1g3n26DUxRQFyVxvoTD4I-8cl1dfWUu-I",
+        createdAt: "2023-07-04T16:29:25.964Z",
+        updatedAt: "2023-08-25T17:30:47.465Z",
+        __v: 0,
+        fileId: "",
+      },
+      userDetails: "Ingreso",
+      date: "2023-08-26T22:24:18.773Z",
+      status: false,
+      deleted: false,
+      createdAt: "2023-08-26T22:24:18.784Z",
+      updatedAt: "2023-08-26T22:24:18.784Z",
+      id: "64ea7b92f683b2af2100537b",
+    },
+    {
+      title: "ingreso de inventario",
+      rawBody: [
+        {
+          productName: "Colgate Plax",
+          itemName: "Colgate Plax 1000ml",
+          productCode: "PRODUCT-1",
+          itemCode: "EXISTS-1",
+          itemId: "64ea2b7a06c0d7ca71d4f6d8",
+          productId: "64e7abe9225f12eb604f8e0d",
+          initialQuantity: 5,
+          modifiedQuantity: 3,
+          finalQuantity: 8,
+        },
+      ],
+      type: "restock",
+      user: {
+        _id: "6479b27df0c732726d2fd784",
+        name: "Sistema",
+        email: "sistema@gmail.com",
+        picture: "",
+        restricted: false,
+      },
+      fromWorkspace: {
+        _id: "64a448df67469b11b0cd88b3",
+        name: "Bodega TICKETCR",
+        description: "1",
+        deleted: false,
+        picture: "",
+        collectionFolderId: "1g3n26DUxRQFyVxvoTD4I-8cl1dfWUu-I",
+        createdAt: "2023-07-04T16:29:25.964Z",
+        updatedAt: "2023-08-25T17:30:47.465Z",
+        __v: 0,
+        fileId: "",
+      },
+      userDetails: "Otro Ingreso\n",
+      date: "2023-08-26T19:34:05.614Z",
+      status: false,
+      deleted: false,
+      createdAt: "2023-08-26T19:34:05.620Z",
+      updatedAt: "2023-08-26T19:34:05.620Z",
+      id: "64ea53ad678c1defd69f3bef",
+    },
+    {
+      title: "ingreso de inventario",
+      rawBody: [
+        {
+          productName: "Colgate Plax",
+          itemName: "Colgate Plax 1000ml",
+          productCode: "PRODUCT-1",
+          itemCode: "EXISTS-1",
+          itemId: "64ea2b7a06c0d7ca71d4f6d8",
+          productId: "64e7abe9225f12eb604f8e0d",
+          initialQuantity: 3,
+          modifiedQuantity: 9,
+          finalQuantity: 12,
+        },
+      ],
+      type: "restock",
+      user: {
+        _id: "6479b27df0c732726d2fd784",
+        name: "Sistema",
+        email: "sistema@gmail.com",
+        picture: "",
+        restricted: false,
+      },
+      fromWorkspace: {
+        _id: "64a448df67469b11b0cd88b3",
+        name: "Bodega TICKETCR",
+        description: "1",
+        deleted: false,
+        picture: "",
+        collectionFolderId: "1g3n26DUxRQFyVxvoTD4I-8cl1dfWUu-I",
+        createdAt: "2023-07-04T16:29:25.964Z",
+        updatedAt: "2023-08-25T17:30:47.465Z",
+        __v: 0,
+        fileId: "",
+      },
+      userDetails: "Ingreso\n",
+      date: "2023-08-26T19:02:33.219Z",
+      status: false,
+      deleted: false,
+      createdAt: "2023-08-26T19:02:33.222Z",
+      updatedAt: "2023-08-26T19:02:33.222Z",
+      id: "64ea4c49678c1defd69f3b48",
+    },
+  ];
 
   return (
     <>
       {/* <ProductInventory /> */}
 
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           bgcolor: "#EEF2F6",
@@ -582,12 +836,22 @@ function App() {
         }}
       >
         <Dashboard data={userData} />
-      </Box>
+      </Box> */}
 
       {/* <h1>Generar reporte</h1>
-      <PDFReport data={jsonData} /> */}
-      {/* <CreatePDF /> */}
-      {/* <Button onClick={() => fetchImage()}>To URI</Button> */}
+        <PDFReport data={jsonData} /> */}
+      <Box>
+        <BlobProvider document={HandleNotifaction('restock', data)}>
+          {({ blob, url, loading, error }) => (
+            <Box>
+              <Button variant="contained" disabled={loading}>
+                {loading ? "Generando PDF..." : "Descargar reporte"}
+              </Button>
+              {url && <iframe src={url} width="100%" height="720px" />}
+            </Box>
+          )}
+        </BlobProvider>
+      </Box>
     </>
   );
 }
