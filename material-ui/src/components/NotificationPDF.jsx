@@ -216,7 +216,6 @@ const HandleNotification = (type, data, filters) => {
 
   const styles = StyleSheet.create({
     page: {
-      // backgroundColor: "#f4f4fc",
       alignItems: "center",
       padding: 24,
       gap: 0,
@@ -370,7 +369,12 @@ const Notification = ({ current, data }) => {
           <View style={styles.comments}>
             <Text style={{ fontSize: 12, marginBottom: 16 }}>COMENTARIOS</Text>
             <View
-              style={{ border: "1px solid #B2BEC3", padding: 8, minHeight: "40%", maxHeight: '80%' }}
+              style={{
+                border: "1px solid #B2BEC3",
+                padding: 8,
+                minHeight: "40%",
+                maxHeight: "80%",
+              }}
             >
               <Text>{data.userDetails}</Text>
             </View>
@@ -380,29 +384,5 @@ const Notification = ({ current, data }) => {
     </View>
   );
 };
-
-const TestARRAY = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-export const TestPDF = () => (
-  <Document>
-    <Page size="A4">
-      <View style={{ gap: 24 }}>
-        {TestARRAY.map((a) => (
-          <Text
-            style={{
-              height: 196,
-              width: "100%",
-              backgroundColor: "red",
-              border: "2px solid blue",
-            }}
-            wrap={false}
-          >
-            {a}
-          </Text>
-        ))}
-      </View>
-    </Page>
-  </Document>
-);
 
 export default HandleNotification;
